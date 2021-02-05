@@ -113,7 +113,7 @@ false
 ## Examples
 
 In the examples directory you can find some examples with
-dummy data and configurtion.
+dummy data and configuration.
 
 This is a screenshot of what the generated UI can look like:
 
@@ -122,4 +122,4 @@ This is a screenshot of what the generated UI can look like:
 ## Contact
 
 If you have any question or need help please email me at:
-giannis.tsakiris@gmail.com
+giannis.tsakiris [at] gmail.com
