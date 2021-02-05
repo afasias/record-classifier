@@ -1,0 +1,280 @@
+<html lang="en">
+<head>
+    <title>Category Explorer</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <style>
+
+        body {
+            font-family: sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: #00c;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            margin-top: 30px;
+            border-top: #000 solid 1px;
+            border-left: #000 solid 1px;
+            border-spacing: 0px;
+        }
+
+        thead {
+            background-color: #ffb;
+        }
+
+        td, th {
+            text-align: left;
+            font-family: sans-serif;
+            white-space: nowrap;
+            padding: 5px;
+            margn: 0px;
+            border-bottom: #000 solid 1px;
+            border-right: #000 solid 1px;
+        }
+
+        td.number {
+            text-align: right;
+        }
+
+        tbody tr:nth-child(2n+2) {
+            background-color: #EEEEEE;
+        }
+
+        tbody tr:hover {
+            background-color: #DDFFDD;
+        }
+
+        tbody tr:nth-child(2n+2):hover {
+            background-color: #CDEDCD;
+        }
+
+        #chart {
+            float: right;
+            margin-bottom: 30px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="main">
+    <span id="path"></span>
+    <canvas id="chart" width="400" height="400"></canvas>
+    <table id="categories" aria-label="Categories">
+        <thead>
+        <tr>
+            <th scope="col">Category</th>
+                            <th scope="col">count</th>
+                <th scope="col">amountTotal</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <table id="records" aria-label="Records">
+        <thead>
+        <tr>
+                <th scope="col">date</th>
+                <th scope="col">color</th>
+                <th scope="col">shape</th>
+                <th scope="col">description</th>
+                <th scope="col">amount</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<script type=" application/javascript">
+
+  let chart = new Chart('chart', {
+    type: 'doughnut',
+    data: {
+      labels: [],
+      datasets: [{
+        data: [],
+        backgroundColor: [
+          '#0000ff',
+          '#c500c3',
+          '#fa0080',
+          '#ff0045',
+          '#ff0000',
+          '#f66d00',
+          '#d7a700',
+          '#a0d600',
+          '#00ff00',
+          '#00e1ad',
+          '#00baff',
+          '#0087ff',
+        ],
+        borderColor: [
+          '#000',
+          '#000',
+          '#000',
+          '#000',
+          '#000',
+          '#000',
+          '#000',
+          '#000',
+          '#000',
+          '#000',
+          '#000',
+          '#000',
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: false,
+    }
+  });
+
+  let categoryTree = {"name":"Top Category","condition":{},"categories":[{"name":"Warm coloured","condition":{},"categories":[{"name":"Honorable","condition":{},"categories":null,"records":[{"date":"2019-08-24","amount":"57.29","color":"red","shape":"square","description":"good zipper picture property honorable sign incredible conscious"},{"date":"2019-06-08","amount":"52.31","color":"red","shape":"circle","description":"petite picture mix honorable solid educated bent"},{"date":"2018-08-28","amount":"39.23","color":"red","shape":"triangle","description":"pour kitty fireman entertain alike honorable acrid dirty"},{"date":"2020-07-23","amount":"23.04","color":"red","shape":"square","description":"honorable pour outgoing title"},{"date":"2020-09-13","amount":"5.32","color":"yellow","shape":"square","description":"honorable clean disagree secretary quack hapless eggs"},{"date":"2018-08-08","amount":"38.78","color":"red","shape":"square","description":"bite-sized honorable suspend"},{"date":"2019-01-24","amount":"82.52","color":"yellow","shape":"circle","description":"pour bent linen living license title honorable servant"},{"date":"2019-02-19","amount":"94.45","color":"red","shape":"square","description":"title incredible invincible honorable trap invincible"},{"date":"2020-06-15","amount":"80.46","color":"yellow","shape":"circle","description":"scarecrow petite honorable railway quack"},{"date":"2018-10-28","amount":"18.69","color":"yellow","shape":"square","description":"clean solid honorable spy"},{"date":"2019-11-21","amount":"98.18","color":"yellow","shape":"square","description":"panoramic eggs aloof exercise exercise honorable linen"},{"date":"2019-11-19","amount":"9.02","color":"red","shape":"triangle","description":"kitty honorable grape"},{"date":"2019-09-03","amount":"29.05","color":"yellow","shape":"square","description":"honorable hapless tire title property interest"},{"date":"2020-04-14","amount":"35.58","color":"red","shape":"square","description":"military scare honorable elite"},{"date":"2020-06-25","amount":"32.3","color":"yellow","shape":"circle","description":"linen stick confused honorable punish"},{"date":"2019-07-31","amount":"27.65","color":"red","shape":"square","description":"understood honorable incredible pricey detail aloof"},{"date":"2019-02-13","amount":"22.59","color":"red","shape":"circle","description":"honorable confused strong stick taste muddle solid"},{"date":"2019-05-14","amount":"47.01","color":"yellow","shape":"triangle","description":"destroy secretary secretary serve honorable instruct"},{"date":"2020-10-03","amount":"24.45","color":"yellow","shape":"triangle","description":"honorable joyous ancient erect alike"},{"date":"2019-01-30","amount":"69.86","color":"red","shape":"triangle","description":"honorable girls quack slave"},{"date":"2021-01-08","amount":"13.95","color":"yellow","shape":"circle","description":"committee plot military slave honorable kiss escape elite"},{"date":"2019-04-28","amount":"39.78","color":"yellow","shape":"triangle","description":"confused disagree bite need honorable applaud bite decay"},{"date":"2020-01-29","amount":"93.31","color":"red","shape":"triangle","description":"solid honorable want clover picture"},{"date":"2020-07-12","amount":"1.16","color":"red","shape":"circle","description":"detail honorable bite scare"},{"date":"2019-06-30","amount":"32.32","color":"red","shape":"triangle","description":"honorable alike pricey railway scarecrow secretary"},{"date":"2018-10-15","amount":"3.39","color":"red","shape":"triangle","description":"belong historical petite honorable coach strong educated complete"},{"date":"2021-02-01","amount":"23.42","color":"yellow","shape":"square","description":"grape honorable invincible mix living majestic"},{"date":"2019-05-29","amount":"7.07","color":"red","shape":"circle","description":"honorable bite-sized watery watery"},{"date":"2020-01-04","amount":"10.71","color":"red","shape":"triangle","description":"clean door basin plot basin honorable acrid"},{"date":"2020-02-14","amount":"99.67","color":"yellow","shape":"circle","description":"cheat honorable detail expansion alike visit watery"},{"date":"2020-07-15","amount":"55.56","color":"yellow","shape":"triangle","description":"letters honorable bent"},{"date":"2018-11-11","amount":"83.25","color":"yellow","shape":"circle","description":"honorable thin solid"},{"date":"2019-08-08","amount":"11.89","color":"red","shape":"square","description":"committee watery bite picture fireman property honorable railway"}],"aggregations":{"count":33,"amountTotal":1363.26}},{"name":"Square Sophisticated","condition":{},"categories":null,"records":[{"date":"2019-02-02","amount":"27.49","color":"yellow","shape":"square","description":"sophisticated hapless understood"},{"date":"2018-05-12","amount":"10.84","color":"yellow","shape":"square","description":"acrid sophisticated need"},{"date":"2019-08-23","amount":"50.13","color":"red","shape":"square","description":"groovy good big sophisticated applaud bite-sized"},{"date":"2020-04-25","amount":"18.92","color":"red","shape":"square","description":"secretary confused sophisticated coach"},{"date":"2019-11-19","amount":"98.32","color":"yellow","shape":"square","description":"invincible sophisticated destroy scarecrow pour"},{"date":"2018-10-07","amount":"23.61","color":"red","shape":"square","description":"sophisticated cheat pour zipper taste secretary zipper"},{"date":"2018-06-09","amount":"50.76","color":"red","shape":"square","description":"sophisticated spy driving"}],"aggregations":{"count":7,"amountTotal":280.07}},{"name":"Non-Square Sophisticated","condition":{},"categories":null,"records":[{"date":"2019-12-29","amount":"54.52","color":"yellow","shape":"triangle","description":"calm servant notebook mice calm sophisticated horse"},{"date":"2019-05-13","amount":"85.95","color":"yellow","shape":"triangle","description":"plot pricey slave sophisticated mix exercise"},{"date":"2018-09-07","amount":"36.6","color":"red","shape":"triangle","description":"trap detail sophisticated calm"},{"date":"2018-05-12","amount":"65.19","color":"red","shape":"triangle","description":"sign instruct decay sophisticated lethal strong ancient"},{"date":"2019-01-22","amount":"29.37","color":"yellow","shape":"triangle","description":"sophisticated bent serve"},{"date":"2018-06-24","amount":"26.72","color":"yellow","shape":"circle","description":"need sophisticated driving kitty acrid belong"},{"date":"2018-05-19","amount":"53.53","color":"red","shape":"triangle","description":"detail door sophisticated need fireman educated conscious"},{"date":"2019-04-18","amount":"38.85","color":"yellow","shape":"circle","description":"driving solid sophisticated exercise"},{"date":"2019-12-15","amount":"25.68","color":"yellow","shape":"triangle","description":"alike quack invincible sophisticated elite"},{"date":"2020-06-19","amount":"98.22","color":"red","shape":"circle","description":"sophisticated kitty invincible wax freezing mice"},{"date":"2019-07-12","amount":"90.18","color":"yellow","shape":"triangle","description":"grape sophisticated stick scarecrow"},{"date":"2019-07-22","amount":"71.94","color":"yellow","shape":"circle","description":"invincible historical sophisticated cheat tire"},{"date":"2020-06-19","amount":"85.63","color":"red","shape":"circle","description":"grape dirty sophisticated instruct"},{"date":"2018-08-07","amount":"68.65","color":"yellow","shape":"circle","description":"sophisticated dirty quack eggs kiss watery"},{"date":"2019-02-19","amount":"45.4","color":"yellow","shape":"circle","description":"big connect scare sophisticated committee majestic"}],"aggregations":{"count":15,"amountTotal":876.43}},{"name":"Other","condition":{},"categories":null,"records":[{"date":"2019-05-07","amount":"58.77","color":"red","shape":"square","description":"joyous sweltering need strong groovy cheat"},{"date":"2020-05-29","amount":"44.24","color":"red","shape":"circle","description":"secret sweltering plot big hapless clean petite rhyme"},{"date":"2020-10-04","amount":"0.06","color":"red","shape":"circle","description":"efficacious basin queen entertain serve mice plot"},{"date":"2018-06-25","amount":"49.07","color":"red","shape":"triangle","description":"hysterical disagree historical"},{"date":"2019-05-04","amount":"19.38","color":"yellow","shape":"square","description":"hysterical title mix taste tire military petite rhyme"},{"date":"2019-01-12","amount":"7.22","color":"red","shape":"triangle","description":"pour trap hysterical clover tire eager mice"},{"date":"2019-07-12","amount":"12.13","color":"yellow","shape":"circle","description":"efficacious ancient discreet connect"},{"date":"2019-04-21","amount":"53.07","color":"red","shape":"square","description":"confused entertain hysterical title educated linen detail"},{"date":"2019-12-22","amount":"54.96","color":"red","shape":"square","description":"military sweltering spy kiss queen"},{"date":"2019-04-17","amount":"20.05","color":"red","shape":"square","description":"hapless property dirty efficacious groovy"},{"date":"2019-11-01","amount":"80.82","color":"yellow","shape":"circle","description":"punish eager invincible sweltering stick"},{"date":"2018-09-24","amount":"55.02","color":"red","shape":"square","description":"disagree efficacious scare"},{"date":"2021-01-24","amount":"25.55","color":"yellow","shape":"circle","description":"majestic expansion majestic basin hysterical destroy"},{"date":"2021-01-10","amount":"83.46","color":"yellow","shape":"square","description":"alike depressed exercise efficacious expansion hapless"},{"date":"2019-10-25","amount":"47","color":"yellow","shape":"triangle","description":"secretary enjoy efficacious conscious eggs"},{"date":"2020-07-06","amount":"12.32","color":"yellow","shape":"circle","description":"girls sweltering scarecrow depressed bite enjoy"},{"date":"2019-08-25","amount":"39.03","color":"red","shape":"circle","description":"committee hysterical discreet"},{"date":"2019-03-21","amount":"90.13","color":"red","shape":"triangle","description":"nondescript agreeable understood alike joyous spy incredible bite"},{"date":"2020-04-05","amount":"47.15","color":"yellow","shape":"circle","description":"entertain depressed need hysterical eager horse thin"},{"date":"2019-09-21","amount":"12.91","color":"red","shape":"triangle","description":"efficacious destroy grape interest good solid"},{"date":"2018-05-30","amount":"17.07","color":"red","shape":"square","description":"rhyme sweltering linen"},{"date":"2020-12-04","amount":"1.79","color":"red","shape":"square","description":"calm educated zipper outgoing zipper sweltering hapless agreeable"},{"date":"2018-07-23","amount":"70.25","color":"yellow","shape":"circle","description":"thin nondescript invincible"},{"date":"2020-03-29","amount":"46.42","color":"yellow","shape":"triangle","description":"nondescript linen mix understood depressed applaud"},{"date":"2018-12-31","amount":"2.84","color":"red","shape":"circle","description":"efficacious spy coach hapless exercise agreeable door interest"},{"date":"2018-10-26","amount":"21.92","color":"yellow","shape":"square","description":"bite license hysterical tacky snow serve discreet"},{"date":"2018-09-04","amount":"5.62","color":"red","shape":"triangle","description":"muddle sign righteous serve nondescript agreeable"},{"date":"2019-09-04","amount":"20.6","color":"yellow","shape":"triangle","description":"interest hysterical watery majestic"},{"date":"2020-02-06","amount":"19.77","color":"yellow","shape":"triangle","description":"eager petite pricey sweltering escape queen"},{"date":"2020-01-28","amount":"49.98","color":"yellow","shape":"triangle","description":"sweltering door shut slave"},{"date":"2019-01-03","amount":"91.34","color":"red","shape":"triangle","description":"sweltering understood erect"},{"date":"2019-02-26","amount":"22.71","color":"yellow","shape":"circle","description":"applaud cheat expansion nondescript conscious"},{"date":"2019-01-22","amount":"40.15","color":"red","shape":"circle","description":"tire alike nondescript fireman"},{"date":"2019-03-08","amount":"52.46","color":"yellow","shape":"square","description":"efficacious coach machine basin historical tacky"},{"date":"2019-02-02","amount":"10.02","color":"yellow","shape":"circle","description":"educated enjoy nondescript picture committee punish"},{"date":"2019-05-22","amount":"27","color":"red","shape":"square","description":"entertain muddle sweltering groovy applaud righteous"},{"date":"2019-05-15","amount":"32.33","color":"red","shape":"square","description":"nondescript detail plot queen"},{"date":"2019-06-03","amount":"80.68","color":"red","shape":"circle","description":"stick efficacious quack outgoing secret calm horse"},{"date":"2018-12-10","amount":"93.73","color":"red","shape":"circle","description":"nondescript good good solid"},{"date":"2019-07-28","amount":"12.64","color":"red","shape":"circle","description":"hapless decay zipper sweltering clover"},{"date":"2021-01-10","amount":"41.28","color":"yellow","shape":"square","description":"aloof sweltering agreeable taste disagree"},{"date":"2019-04-25","amount":"58.76","color":"red","shape":"square","description":"efficacious watery scare clover fanatical"},{"date":"2018-09-22","amount":"75.03","color":"red","shape":"circle","description":"property coach nondescript acrid serve disagree quack exercise"},{"date":"2020-02-08","amount":"19.45","color":"red","shape":"circle","description":"nondescript disagree scare"},{"date":"2018-10-04","amount":"99.54","color":"red","shape":"square","description":"kitty pour taste hysterical understood"},{"date":"2019-04-16","amount":"65.95","color":"red","shape":"triangle","description":"big sweltering basin snow joyous"},{"date":"2018-08-09","amount":"98.47","color":"yellow","shape":"triangle","description":"sweltering muddle freezing horse erect depressed"},{"date":"2019-06-26","amount":"34.52","color":"yellow","shape":"square","description":"military nondescript historical detail"},{"date":"2019-08-07","amount":"42.19","color":"red","shape":"square","description":"watery discreet nondescript expansion mix"},{"date":"2019-07-20","amount":"88.12","color":"yellow","shape":"triangle","description":"quack freezing hysterical lace shut"},{"date":"2019-05-22","amount":"29.39","color":"red","shape":"circle","description":"trap scarecrow horse understood tacky hysterical agreeable"},{"date":"2020-05-17","amount":"74.01","color":"yellow","shape":"triangle","description":"serve scarecrow sign nondescript bite-sized"},{"date":"2020-10-10","amount":"17.54","color":"yellow","shape":"circle","description":"panoramic hysterical grape bite-sized hapless trap serve"},{"date":"2018-09-16","amount":"11.52","color":"red","shape":"triangle","description":"eggs zipper panoramic freezing sign nondescript trap"},{"date":"2020-08-14","amount":"52.97","color":"red","shape":"triangle","description":"sweltering joyous understood strong"},{"date":"2019-05-10","amount":"90.24","color":"yellow","shape":"circle","description":"efficacious living outgoing trap trap"},{"date":"2018-08-14","amount":"32.48","color":"red","shape":"square","description":"connect mix hapless nondescript exercise"},{"date":"2020-02-03","amount":"33.94","color":"yellow","shape":"square","description":"strong alike property agreeable nondescript erect"},{"date":"2019-02-28","amount":"58.78","color":"red","shape":"triangle","description":"enjoy sweltering discreet"},{"date":"2020-11-09","amount":"97.94","color":"red","shape":"triangle","description":"clean clean sweltering need joyous"},{"date":"2020-02-17","amount":"54.28","color":"yellow","shape":"circle","description":"panoramic hysterical kiss fanatical snow dirty"},{"date":"2020-09-20","amount":"50.29","color":"yellow","shape":"square","description":"hysterical railway snow"},{"date":"2019-05-10","amount":"4.31","color":"yellow","shape":"square","description":"nondescript applaud bent mice property belong"},{"date":"2019-05-08","amount":"13.62","color":"yellow","shape":"square","description":"calm nondescript driving eager"},{"date":"2019-09-20","amount":"53.15","color":"red","shape":"circle","description":"bent lethal hysterical sign grape linen depressed"},{"date":"2019-05-17","amount":"30.5","color":"red","shape":"square","description":"efficacious visit hapless kitty"},{"date":"2021-01-13","amount":"76.89","color":"yellow","shape":"triangle","description":"sweltering panoramic eggs notebook"},{"date":"2018-08-02","amount":"24.7","color":"red","shape":"square","description":"connect efficacious pour property"},{"date":"2019-09-13","amount":"44.03","color":"red","shape":"square","description":"property dirty groovy hysterical slave solid girls"},{"date":"2018-12-28","amount":"62.9","color":"yellow","shape":"square","description":"nondescript plot watery dirty understood"},{"date":"2018-11-06","amount":"24.32","color":"red","shape":"square","description":"hysterical tire driving educated ancient"},{"date":"2018-07-07","amount":"61.85","color":"yellow","shape":"triangle","description":"invincible hysterical kitty wax"},{"date":"2020-03-15","amount":"78.32","color":"red","shape":"circle","description":"hysterical girls machine shut"},{"date":"2019-10-28","amount":"50.2","color":"yellow","shape":"square","description":"invincible kitty elite nondescript girls need"},{"date":"2019-11-18","amount":"7.1","color":"red","shape":"triangle","description":"snow efficacious secret"},{"date":"2019-07-03","amount":"94.04","color":"red","shape":"circle","description":"queen efficacious picture property sign petite"},{"date":"2018-08-12","amount":"12.93","color":"yellow","shape":"triangle","description":"wax aloof fireman joyous nondescript shut"},{"date":"2018-10-17","amount":"53.84","color":"yellow","shape":"square","description":"mice hysterical linen title property license serve linen"},{"date":"2019-04-30","amount":"46.14","color":"red","shape":"square","description":"punish sweltering kiss good invincible"},{"date":"2019-08-08","amount":"19.2","color":"yellow","shape":"square","description":"exercise grape connect nondescript kiss connect"},{"date":"2019-05-11","amount":"52.67","color":"red","shape":"triangle","description":"basin eggs escape hysterical thin incredible"}],"aggregations":{"count":81,"amountTotal":3569.06}}],"records":[],"aggregations":{"count":136,"amountTotal":6088.82}},{"name":"Cold coloured","condition":{},"categories":[{"name":"Intermediate","condition":{},"categories":[{"name":"Efficacious","condition":{},"categories":null,"records":[{"date":"2020-11-14","amount":"35.07","color":"blue","shape":"triangle","description":"visit taste plot secretary sign efficacious pour instruct"},{"date":"2019-10-11","amount":"87.6","color":"green","shape":"square","description":"pricey machine efficacious want confused property dirty property"},{"date":"2019-12-19","amount":"92.11","color":"blue","shape":"circle","description":"kiss strong efficacious zipper petite machine instruct"},{"date":"2020-08-17","amount":"50.36","color":"blue","shape":"square","description":"efficacious groovy escape incredible tacky"},{"date":"2019-03-24","amount":"13.07","color":"green","shape":"triangle","description":"discreet efficacious solid"},{"date":"2019-12-12","amount":"58.93","color":"blue","shape":"circle","description":"disagree efficacious groovy quack snow mix notebook decay"},{"date":"2019-02-16","amount":"9.78","color":"green","shape":"square","description":"efficacious expansion calm"},{"date":"2020-04-03","amount":"88.49","color":"blue","shape":"square","description":"efficacious complete lace"},{"date":"2019-12-05","amount":"64.39","color":"green","shape":"square","description":"spy efficacious serve trap living picture big"},{"date":"2019-07-12","amount":"61.4","color":"green","shape":"circle","description":"kitty punish efficacious alike property"},{"date":"2020-04-30","amount":"3.36","color":"blue","shape":"square","description":"thin good efficacious petite"},{"date":"2020-11-07","amount":"47.17","color":"blue","shape":"square","description":"efficacious rhyme detail"},{"date":"2020-04-01","amount":"64.62","color":"blue","shape":"square","description":"watery freezing plot plot big efficacious sign"},{"date":"2020-04-06","amount":"29.53","color":"green","shape":"circle","description":"efficacious mix strong"},{"date":"2018-11-18","amount":"10.1","color":"green","shape":"square","description":"efficacious picture historical dirty solid"},{"date":"2020-07-23","amount":"27.04","color":"green","shape":"circle","description":"snow efficacious alike"},{"date":"2018-09-01","amount":"58.91","color":"blue","shape":"triangle","description":"serve incredible efficacious mice secretary lace"}],"aggregations":{"count":17,"amountTotal":801.93}},{"name":"Sweltering","condition":{},"categories":null,"records":[{"date":"2019-06-07","amount":"33.49","color":"blue","shape":"circle","description":"discreet elite sweltering notebook"},{"date":"2018-08-27","amount":"28.54","color":"blue","shape":"triangle","description":"elite invincible bent sweltering secret instruct"},{"date":"2019-10-16","amount":"89.4","color":"blue","shape":"circle","description":"shut sweltering acrid righteous"},{"date":"2020-08-24","amount":"96.79","color":"green","shape":"triangle","description":"quack basin committee picture sweltering decay"},{"date":"2018-08-21","amount":"66.46","color":"blue","shape":"triangle","description":"shut committee serve sweltering muddle muddle servant invincible"},{"date":"2018-08-15","amount":"71.97","color":"green","shape":"square","description":"instruct groovy need sweltering acrid calm letters"},{"date":"2020-12-04","amount":"44.35","color":"blue","shape":"circle","description":"grape sweltering invincible"},{"date":"2018-09-06","amount":"90.87","color":"blue","shape":"triangle","description":"scare kiss understood sweltering hapless"},{"date":"2020-12-27","amount":"27.38","color":"blue","shape":"circle","description":"driving linen tacky trap sweltering snow"},{"date":"2020-10-16","amount":"90.91","color":"green","shape":"square","description":"mix sweltering tire plot linen pour"},{"date":"2020-05-03","amount":"76.86","color":"blue","shape":"triangle","description":"sweltering license servant"},{"date":"2021-01-14","amount":"82.47","color":"blue","shape":"circle","description":"destroy pour sweltering righteous"},{"date":"2019-04-19","amount":"60.87","color":"blue","shape":"circle","description":"letters pour sweltering military eager thin"},{"date":"2020-04-12","amount":"98.96","color":"green","shape":"circle","description":"fanatical muddle kiss kiss rhyme sweltering secretary"},{"date":"2020-03-29","amount":"72.08","color":"green","shape":"square","description":"sweltering mice living mice tire kitty instruct erect"},{"date":"2020-02-05","amount":"47.87","color":"green","shape":"triangle","description":"sweltering ancient coach cheat queen"},{"date":"2018-11-05","amount":"86.32","color":"green","shape":"triangle","description":"sweltering door incredible"},{"date":"2018-07-25","amount":"16.78","color":"green","shape":"square","description":"lace sweltering mice coach"}],"aggregations":{"count":18,"amountTotal":1182.37}},{"name":"Non-Descript","condition":{},"categories":null,"records":[{"date":"2020-04-06","amount":"94.98","color":"green","shape":"circle","description":"bent lethal clover committee disagree nondescript tire"},{"date":"2020-08-12","amount":"71.4","color":"blue","shape":"circle","description":"shut nondescript destroy calm basin enjoy"},{"date":"2020-10-20","amount":"65.01","color":"green","shape":"circle","description":"horse fanatical depressed fireman nondescript agreeable acrid"},{"date":"2021-01-17","amount":"78.29","color":"green","shape":"square","description":"nondescript want decay cheat"},{"date":"2020-01-27","amount":"32.75","color":"green","shape":"circle","description":"nondescript enjoy good scarecrow letters complete want pricey"},{"date":"2019-03-28","amount":"54.98","color":"green","shape":"square","description":"girls fanatical interest nondescript calm servant"},{"date":"2018-11-16","amount":"72.15","color":"blue","shape":"square","description":"servant nondescript machine"},{"date":"2019-06-16","amount":"84.17","color":"blue","shape":"triangle","description":"expansion erect nondescript quack linen"},{"date":"2020-06-16","amount":"42.12","color":"green","shape":"square","description":"zipper nondescript notebook"},{"date":"2018-05-09","amount":"72.96","color":"blue","shape":"square","description":"aloof nondescript picture"},{"date":"2020-07-21","amount":"2.6","color":"green","shape":"circle","description":"nondescript enjoy petite"},{"date":"2019-02-28","amount":"24.3","color":"blue","shape":"triangle","description":"invincible big nondescript picture discreet cheat"},{"date":"2020-06-06","amount":"44.73","color":"green","shape":"triangle","description":"connect horse nondescript expansion applaud want tire enjoy"},{"date":"2019-03-21","amount":"60.97","color":"blue","shape":"triangle","description":"nondescript lethal detail"}],"aggregations":{"count":14,"amountTotal":801.41}},{"name":"Hysterical","condition":{},"categories":null,"records":[{"date":"2019-11-22","amount":"47.78","color":"blue","shape":"square","description":"lethal kiss hysterical pour exercise"},{"date":"2021-01-11","amount":"0.89","color":"blue","shape":"square","description":"hysterical visit outgoing strong entertain depressed"},{"date":"2019-09-03","amount":"62.23","color":"green","shape":"circle","description":"majestic petite connect exercise kitty hysterical groovy railway"},{"date":"2018-08-03","amount":"12.5","color":"blue","shape":"triangle","description":"slave interest slave hysterical incredible"},{"date":"2020-08-23","amount":"36.42","color":"blue","shape":"triangle","description":"servant scarecrow hysterical clean machine grape mice"},{"date":"2020-02-22","amount":"6.73","color":"green","shape":"triangle","description":"sign hysterical stick trap bite"},{"date":"2018-10-07","amount":"57.98","color":"blue","shape":"square","description":"letters exercise hysterical want pricey solid"},{"date":"2020-02-08","amount":"47.08","color":"green","shape":"square","description":"hysterical suspend machine"},{"date":"2019-04-09","amount":"60.45","color":"green","shape":"triangle","description":"pour elite clean hysterical need lethal pricey mice"},{"date":"2018-05-26","amount":"45.91","color":"blue","shape":"triangle","description":"hysterical coach erect enjoy secretary military railway lace"},{"date":"2020-07-29","amount":"29.81","color":"green","shape":"triangle","description":"hysterical outgoing fanatical scare"},{"date":"2020-03-22","amount":"44.81","color":"green","shape":"circle","description":"pour elite hysterical connect"},{"date":"2021-01-02","amount":"36.87","color":"green","shape":"square","description":"calm fireman hysterical enjoy plot"},{"date":"2019-04-08","amount":"12.47","color":"green","shape":"square","description":"queen hysterical tacky dirty"},{"date":"2018-06-23","amount":"13.42","color":"blue","shape":"triangle","description":"property complete hysterical incredible"},{"date":"2020-03-19","amount":"67","color":"blue","shape":"triangle","description":"hysterical machine military clean invincible"},{"date":"2021-01-18","amount":"63.47","color":"blue","shape":"square","description":"calm incredible hysterical horse"},{"date":"2019-12-24","amount":"70.77","color":"green","shape":"triangle","description":"calm elite notebook hysterical decay"},{"date":"2019-06-09","amount":"52.53","color":"green","shape":"circle","description":"hysterical enjoy panoramic"},{"date":"2020-07-08","amount":"55.41","color":"green","shape":"circle","description":"horse hysterical historical connect quack plot depressed trap"},{"date":"2020-05-09","amount":"41.7","color":"blue","shape":"circle","description":"spy tacky hysterical coach"},{"date":"2021-01-27","amount":"21.62","color":"blue","shape":"circle","description":"machine hysterical bent"},{"date":"2018-12-04","amount":"50.85","color":"green","shape":"triangle","description":"elite freezing belong hapless hysterical visit"},{"date":"2021-01-24","amount":"90.12","color":"blue","shape":"triangle","description":"zipper hysterical coach"}],"aggregations":{"count":24,"amountTotal":1028.82}}],"records":[{"date":"2019-11-11","amount":"76.4","color":"blue","shape":"triangle","description":"fanatical kiss clean agreeable belong honorable invincible"},{"date":"2019-07-30","amount":"65.55","color":"blue","shape":"circle","description":"honorable enjoy plot outgoing machine"},{"date":"2019-11-08","amount":"46.98","color":"green","shape":"triangle","description":"honorable property depressed scarecrow pour"},{"date":"2019-02-09","amount":"89.44","color":"green","shape":"triangle","description":"visit honorable complete"},{"date":"2020-03-27","amount":"95.86","color":"blue","shape":"square","description":"complete connect sophisticated elite historical"},{"date":"2019-12-22","amount":"55.04","color":"blue","shape":"triangle","description":"honorable confused watery"},{"date":"2021-01-23","amount":"58.29","color":"blue","shape":"circle","description":"panoramic honorable grape joyous strong erect"},{"date":"2018-12-28","amount":"82.38","color":"green","shape":"circle","description":"incredible honorable educated"},{"date":"2018-05-25","amount":"96.94","color":"green","shape":"triangle","description":"sophisticated disagree pour escape visit"},{"date":"2020-10-14","amount":"24.68","color":"green","shape":"square","description":"destroy honorable groovy"},{"date":"2018-12-01","amount":"95.91","color":"green","shape":"circle","description":"wax agreeable spy clover honorable stick"},{"date":"2021-01-16","amount":"2.97","color":"blue","shape":"circle","description":"discreet disagree license sophisticated acrid"},{"date":"2019-08-30","amount":"18.53","color":"green","shape":"circle","description":"honorable committee discreet good"},{"date":"2019-10-24","amount":"94.69","color":"blue","shape":"square","description":"sophisticated discreet watery thin"},{"date":"2019-10-11","amount":"66.58","color":"blue","shape":"circle","description":"bite-sized exercise muddle honorable punish petite acrid wax"},{"date":"2018-12-21","amount":"59.64","color":"green","shape":"circle","description":"acrid honorable petite hapless"},{"date":"2018-10-11","amount":"78.63","color":"blue","shape":"circle","description":"calm grape historical sophisticated stick scarecrow"},{"date":"2019-09-02","amount":"38.93","color":"blue","shape":"circle","description":"honorable quack notebook hapless girls"},{"date":"2018-09-09","amount":"29.28","color":"green","shape":"circle","description":"scare escape disagree punish honorable pour confused"},{"date":"2018-05-24","amount":"19.3","color":"blue","shape":"triangle","description":"suspend honorable rhyme agreeable"},{"date":"2019-10-25","amount":"11.04","color":"green","shape":"circle","description":"sign sophisticated shut agreeable snow"},{"date":"2020-02-20","amount":"62.2","color":"blue","shape":"circle","description":"grape slave scarecrow watery honorable queen pricey visit"},{"date":"2019-11-24","amount":"88.78","color":"blue","shape":"triangle","description":"enjoy honorable spy fireman confused"},{"date":"2019-02-19","amount":"1.9","color":"blue","shape":"circle","description":"need sign honorable queen"},{"date":"2020-08-29","amount":"55.86","color":"green","shape":"circle","description":"queen eager trap destroy zipper honorable pour"},{"date":"2018-09-03","amount":"76.05","color":"blue","shape":"triangle","description":"snow honorable destroy belong applaud alike lethal petite"},{"date":"2020-10-17","amount":"15.86","color":"green","shape":"square","description":"agreeable committee sophisticated machine disagree"},{"date":"2019-01-02","amount":"99.2","color":"green","shape":"triangle","description":"mix sophisticated majestic want clean"},{"date":"2019-07-27","amount":"3.79","color":"green","shape":"square","description":"punish sophisticated complete invincible interest depressed"},{"date":"2020-02-24","amount":"65.44","color":"blue","shape":"triangle","description":"sophisticated acrid wax serve dirty slave erect"},{"date":"2020-12-24","amount":"34.87","color":"blue","shape":"triangle","description":"honorable tire basin"},{"date":"2018-08-27","amount":"89.98","color":"green","shape":"circle","description":"honorable clean discreet eager alike"},{"date":"2019-05-31","amount":"62.82","color":"green","shape":"triangle","description":"cheat honorable notebook"},{"date":"2019-08-24","amount":"11.52","color":"green","shape":"circle","description":"disagree enjoy grape honorable rhyme"},{"date":"2018-10-16","amount":"93.31","color":"blue","shape":"triangle","description":"notebook historical calm groovy honorable horse tacky wax"},{"date":"2018-06-24","amount":"21.99","color":"green","shape":"square","description":"destroy honorable outgoing"},{"date":"2018-05-15","amount":"69.68","color":"green","shape":"square","description":"joyous solid clover honorable tacky"},{"date":"2020-06-15","amount":"34.22","color":"blue","shape":"circle","description":"honorable cheat watery"},{"date":"2019-06-17","amount":"38.13","color":"blue","shape":"circle","description":"honorable conscious military lethal conscious"},{"date":"2018-12-31","amount":"29.39","color":"blue","shape":"square","description":"honorable decay want"},{"date":"2019-12-06","amount":"72.27","color":"green","shape":"circle","description":"sophisticated big kitty mice solid picture"}],"aggregations":{"count":114,"amountTotal":6048.85}}],"records":[],"aggregations":{"count":114,"amountTotal":6048.85}}],"records":[],"aggregations":{"count":250,"amountTotal":12137.67}};
+
+  let fields = {"date":"LocalDate","color":"String","shape":"String","description":"String","amount":"BigDecimal"};
+
+  let aggregations = {"count":{},"amountTotal":{"field":"amount"}};
+
+  let defaultAggregation = "amountTotal";
+
+  addParents(categoryTree);
+  updateView();
+
+  $(window).on('hashchange', function (e) {
+    updateView();
+  });
+
+  function updateView() {
+    const hash = decodeURI(window.location.hash.substr(1));
+    if (hash) {
+      const category = findCategoryByName(categoryTree, hash);
+      displayCategory(category);
+    } else {
+      displayCategory(categoryTree);
+    }
+  }
+
+  function findCategoryByName(category, name) {
+    if (category.name === name) {
+      return category;
+    }
+    if (category.categories) {
+      for (let i = 0; i < category.categories.length; i++) {
+        const child = category.categories[i];
+        const foundCategory = findCategoryByName(child, name);
+        if (foundCategory) {
+          return foundCategory;
+        }
+      }
+    }
+    return null;
+  }
+
+  function addParents(category) {
+    $.each(category.categories, function (i) {
+      const child = category.categories[i];
+      child.parent = category;
+      addParents(child);
+    })
+  }
+
+  function displayCategory(category) {
+    updatePath(category);
+    updateCategoriesTable(category);
+    updateRecordsTable(category);
+    updateChart(category);
+  }
+
+  function updatePath(category) {
+    const path = $('#path');
+    path.empty();
+    let current = category;
+    while (current) {
+      const element = current !== category ?
+        $('<a>')
+          .text(current.name ?? '(undefined)')
+          .attr('href', '#' + current.name)
+          .data('category', current) :
+        $('<span>')
+          .text(current.name ?? '(undefined)');
+      path.prepend(element).prepend(' &#187; ');
+      current = current.parent;
+    }
+  }
+
+  function updateCategoriesTable(category) {
+    const categoriesTable = $('#categories');
+    const categories = $('#categories tbody');
+    categories.empty();
+    categoriesTable.hide();
+    if (category.categories) {
+      $.each(category.categories, function (i) {
+        const child = category.categories[i];
+        const ahref = $('<a>')
+          .text(child.name ?? '(undefined)')
+          .attr('href', '#' + child.name)
+          .data('category', child);
+        let tr = $('<tr>').append($('<td>').html(ahref));
+        $.each(aggregations, function (aggregation) {
+          let value = child.aggregations[aggregation];
+          const field = aggregations[aggregation].field;
+          if (field && fields[field] === 'BigDecimal') {
+            value = value.toFixed(2);
+          }
+          const td = $('<td>').text(value);
+          if (field && fields[field] === 'BigDecimal') {
+            td.attr('class', 'number');
+          }
+          tr = tr.append(td);
+        });
+        categories.append(tr);
+      });
+      categoriesTable.show();
+    }
+  }
+
+  function updateRecordsTable(category) {
+    const recordsTable = $('#records');
+    const records = $('#records tbody');
+    records.empty();
+    recordsTable.hide();
+    if (category.records.length) {
+      $.each(category.records, function (i) {
+        const record = category.records[i];
+        let tr = $('<tr>');
+        $.each(fields, function (field) {
+          const td = $('<td>').text(record[field]);
+          if (fields[field] === 'BigDecimal') {
+            td.attr('class', 'number');
+          }
+          tr = tr.append(td);
+        });
+        records.append(tr);
+      });
+      recordsTable.show();
+    }
+  }
+
+  function updateChart(category) {
+    if (category.categories) {
+      $('#chart').show();
+      chart.data.labels = [];
+      chart.data.datasets[0].data = [];
+      $.each(category.categories, function (i) {
+        const child = category.categories[i];
+        chart.data.labels.push(child.name ?? '(undefined)');
+        chart.data.datasets[0].data.push(child.aggregations[defaultAggregation]);
+      });
+      chart.update();
+    } else {
+      $('#chart').hide();
+    }
+  }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+fields:
+  date: LocalDate
+  color: String
+  shape: String
+  description: String
+  amount: BigDecimal
+
+aggregations:
+  count:
+    type: count
+  amountTotal:
+    type: sum
+    field: amount
+
+importDriver:
+  type: csv
+  source:
+    type: file
+    path: records.csv
+  hasHeader: true
+  quoteChar: '"'
+  separator: ','
+  dataMapping:
+    date: "Date"
+    color: "Color"
+    shape: "Shape"
+    description: "Description"
+    amount: "Amount"
+
+exportDriver:
+  type: html
+  target:
+    type: file
+    path: output.html
+  defaultAggregation: amountTotal
+
+rootCategory:
+  name: Top Category
+  condition: "true"
+  categories:
+    - name: Warm coloured
+      condition: "color == 'red' || color == 'yellow'"
+      categories:
+        - name: Honorable
+          condition: "description contains 'honorable'"
+        - name: Square Sophisticated
+          condition: "description contains 'sophisticated' && shape == 'square'"
+        - name: Non-Square Sophisticated
+          condition: "description contains 'sophisticated'"
+        - name: Other
+          condition: "true"
+    - name: Cold coloured
+      condition: "color == 'blue' || color == 'green'"
+      categories:
+        - name: Intermediate
+          condition: true
+          categories:
+            - name: Efficacious
+              condition: "description contains 'efficacious'"
+            - name: Sweltering
+              condition: "description contains 'sweltering'"
+            - name: Non-Descript
+              condition: "description contains 'nondescript'"
+            - name: Hysterical
+              condition: "description contains 'hysterical'"
