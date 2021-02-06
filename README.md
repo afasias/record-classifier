@@ -119,6 +119,12 @@ This is a screenshot of what the generated UI can look like:
 
 ![Record Explorer UI Screenshot](examples/category-explorer-screenshot.png)
 
+## To Do
+
+- Add regular expression operator
+- ParseException should contain meaningful messages
+- Date formatting
+
 ## Contact
 
 If you have any question or need help please email me at:
