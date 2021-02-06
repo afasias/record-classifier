@@ -14,19 +14,17 @@ public class DefaultFullParser implements FullParser {
   private final Parser booleanParser = new BooleanParser();
 
   @Override
-  public Condition parse(String input) throws ParserException {
-    List<Token> tokens;
-    try {
-      tokens = fullTokenizer.tokenizeAll(input);
-    } catch (TokenizerException e) {
-      throw new ParserException();
+  public Condition parse(String input) throws ParserException, TokenizerException {
+    List<Token> tokens = fullTokenizer.tokenizeAll(input);
+    if (tokens.isEmpty()) {
+      throw new ParserException("Empty input");
     }
     ParseResult parseResult = booleanParser.parse(tokens);
     if (parseResult == null) {
-      throw new ParserException();
+      throw new ParserException("Unrecognized input: " + tokens);
     }
     if (!parseResult.getRemainingTokens().isEmpty()) {
-      throw new ParserException();
+      throw new ParserException("Unrecognized input: " + parseResult.getRemainingTokens());
     }
     return parseResult.getCondition();
   }

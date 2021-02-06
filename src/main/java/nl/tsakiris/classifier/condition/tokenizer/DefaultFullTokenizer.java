@@ -21,6 +21,7 @@ public class DefaultFullTokenizer implements FullTokenizer {
   };
 
   private final TokenizerPostProcessor[] postProcessors = {
+      new ParenthesesParityChecker(),
       new ParenthesesEnricher(),
   };
 
@@ -41,7 +42,7 @@ public class DefaultFullTokenizer implements FullTokenizer {
           continue while_loop;
         }
       }
-      throw new TokenizerException();
+      throw new TokenizerException("Unrecognized input: " + input);
     }
     for (TokenizerPostProcessor postProcessor : postProcessors) {
       tokens = postProcessor.process(tokens);

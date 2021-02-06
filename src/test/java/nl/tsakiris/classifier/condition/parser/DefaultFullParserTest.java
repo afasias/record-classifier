@@ -3,8 +3,9 @@ package nl.tsakiris.classifier.condition.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import nl.tsakiris.classifier.record.Record;
+import lombok.SneakyThrows;
 import nl.tsakiris.classifier.condition.Condition;
+import nl.tsakiris.classifier.record.Record;
 import org.junit.Test;
 
 public class DefaultFullParserTest {
@@ -12,19 +13,21 @@ public class DefaultFullParserTest {
   private final FullParser fullParser = new DefaultFullParser();
 
   @Test
-  public void test_true() throws ParserException {
+  @SneakyThrows
+  public void test_true() {
     Condition condition = fullParser.parse("true");
     assertTrue(condition.test(null));
   }
 
   @Test
-  public void test_false() throws ParserException {
+  @SneakyThrows
+  public void test_false() {
     Condition condition = fullParser.parse("false");
     assertFalse(condition.test(null));
   }
 
   @Test
-  public void test_stringOperations() throws ParserException {
+  public void test_stringOperations() {
     test_stringOperation("name == 'example'", "example", "Example");
     test_stringOperation("name equals 'example'", "example", "Example");
     test_stringOperation("name equalsIgnoreCase 'example'", "Example", "other example");
@@ -36,8 +39,8 @@ public class DefaultFullParserTest {
     test_stringOperation("name startsWith 'exa' || name endsWith 'ple'", "Example", "ExamplE");
   }
 
-  private void test_stringOperation(String input, String matchingText, String mismatchingText)
-      throws ParserException {
+  @SneakyThrows
+  private void test_stringOperation(String input, String matchingText, String mismatchingText) {
     Condition condition = fullParser.parse(input);
     Record matchingRecord = Record.builder()
         .with("name", matchingText)
@@ -50,7 +53,7 @@ public class DefaultFullParserTest {
   }
 
   @Test
-  public void test_logicalOperatorsAndPrecedence() throws ParserException {
+  public void test_logicalOperatorsAndPrecedence() {
     test_logicalOperatorsAndPrecedence("! false || true", true);
     test_logicalOperatorsAndPrecedence("! (false || true)", false);
     test_logicalOperatorsAndPrecedence("false && false || true", true);
@@ -59,8 +62,8 @@ public class DefaultFullParserTest {
     test_logicalOperatorsAndPrecedence("true || (false && false)", true);
   }
 
-  private void test_logicalOperatorsAndPrecedence(String input, boolean expected)
-      throws ParserException {
+  @SneakyThrows
+  private void test_logicalOperatorsAndPrecedence(String input, boolean expected) {
     Condition condition = fullParser.parse(input);
     assertEquals(expected, condition.test(null));
   }

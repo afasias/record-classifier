@@ -8,4 +8,9 @@ public class RegexPatternToken implements Token {
 
   private final Pattern pattern;
 
+  @Override
+  public String toString() {
+    return pattern.toString();
+  }
+
 }

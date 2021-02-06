@@ -7,4 +7,9 @@ public class BooleanConstantToken implements Token {
 
   private final boolean value;
 
+  @Override
+  public String toString() {
+    return Boolean.toString(value);
+  }
+
 }

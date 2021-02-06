@@ -127,7 +127,6 @@ This is a screenshot of what the generated UI can look like:
 
 ## To Do
 
-- ParseException should contain meaningful messages
 - Date formatting
 
 ## Contact

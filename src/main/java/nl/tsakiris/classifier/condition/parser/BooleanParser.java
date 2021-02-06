@@ -33,7 +33,7 @@ public class BooleanParser implements Parser {
     tokens = tokens.subList(1, tokens.size());
     ParseResult booleanParseResult = parse(tokens);
     if (booleanParseResult == null) {
-      throw new ParserException();
+      return firstTermParseResult;
     }
     List<Condition> conditions = asList(
         firstTermParseResult.getCondition(),

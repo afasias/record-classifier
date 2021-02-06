@@ -8,4 +8,9 @@ public class TermOperatorToken implements Token {
 
   private final TermOperator value;
 
+  @Override
+  public String toString() {
+    return value.name();
+  }
+
 }
