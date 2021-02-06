@@ -9,6 +9,7 @@ public class ExpressionParser implements Parser {
       new BooleanConstantParser(),
       new StringEqualityParser(),
       new StringFunctionParser(),
+      new RegexMatchParser(),
   };
 
   @Override

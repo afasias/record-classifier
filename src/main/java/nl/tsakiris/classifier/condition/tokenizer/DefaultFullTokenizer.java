@@ -12,10 +12,12 @@ public class DefaultFullTokenizer implements FullTokenizer {
       new BooleanNotOperatorTokenizer(),
       new ParenthesisTokenizer(),
       new EqualityOperatorTokenizer(),
+      new RegexOperatorTokenizer(),
       new BooleanConstantTokenizer(),
       new TermOperatorTokenizer(),
       new TermFieldTokenizer(),
       new StringLiteralTokenizer(),
+      new RegexPatternTokenizer(),
   };
 
   private final TokenizerPostProcessor[] postProcessors = {

@@ -71,6 +71,12 @@ someField endsWith 'xyz'
 someField contains 'klm'
 ```
 
+Regular expression
+
+```
+someField ~ /^[a-z]+$/
+```
+
 ### Boolean operators
 
 Logical conjuction
@@ -121,7 +127,6 @@ This is a screenshot of what the generated UI can look like:
 
 ## To Do
 
-- Add regular expression operator
 - ParseException should contain meaningful messages
 - Date formatting
 
