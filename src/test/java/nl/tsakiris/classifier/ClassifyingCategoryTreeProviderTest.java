@@ -80,6 +80,11 @@ public class ClassifyingCategoryTreeProviderTest {
           .with("debitCredit", "Debit")
           .with("amount", "50")
           .with("name", "Other Expense")
+          .build(),
+      Record.builder()
+          .with("debitCredit", "Debit")
+          .with("amount", "NaN")
+          .with("name", "Non-numerical amount")
           .build()
   );
 
@@ -102,7 +107,7 @@ public class ClassifyingCategoryTreeProviderTest {
 
     Category debitCategory = categoryTree.getCategories().get(1);
     assertEquals("Debit", debitCategory.getName());
-    assertEquals(4, debitCategory.getAggregations().get("count"));
+    assertEquals(5, debitCategory.getAggregations().get("count"));
     assertEquals(new BigDecimal("320"), debitCategory.getAggregations().get("totalAmount"));
 
     Category superMarketCategory = debitCategory.getCategories().get(0);

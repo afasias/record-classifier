@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import nl.tsakiris.classifier.record.Record;
 import nl.tsakiris.classifier.category.Category;
+import nl.tsakiris.classifier.record.Record;
 
 @Data
 @AllArgsConstructor
@@ -27,7 +27,11 @@ public class SumAggregation implements Aggregation<BigDecimal> {
     }
     for (Record record : category.getRecords()) {
       String value = record.get(field).replace(',', '.');
-      sum = sum.add(new BigDecimal(value));
+      try {
+        sum = sum.add(new BigDecimal(value));
+      } catch (NumberFormatException e) {
+        // ignore non-numerical input
+      }
     }
     return sum;
   }
